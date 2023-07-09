@@ -1,0 +1,17 @@
+{
+  "name": "api_receitas",
+  "version": "1.0.0",
+  "description": "api que mostra receitas de pratos doces, salgados e agridoces",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "\"Nathalia Chesim\" , \"Tiago Lara\"",
+  "license": "ISC",
+  "dependencies": {
+    "knex": "^2.5.0",
+    "mysql": "^2.18.1",
+    "restify": "^11.1.0",
+    "restify-errors": "^8.0.2"
+  }
+}
