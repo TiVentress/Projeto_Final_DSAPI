@@ -4,7 +4,7 @@ const restify = require("restify");
 const errors = require("restify-errors")
 
 const servidor = restify.createServer({
-    name: "loja_dsapi",
+    name: "api_receitas",
     version: "1.0.0"
 })
 
@@ -24,14 +24,14 @@ var knex = require('knex')({
         host: 'localhost',
         user: 'root',
         password: '',
-        database: 'loja_dsapi'
+        database: 'api_receitas'
     }
 });
 
 // Get de boas vindas
 
 servidor.get('/', (req, res, next) => {
-    res.send('Bem-vindo(a) à API loja');   
+    res.send('Bem-vindo(a) à API de receitas!');   
 });
 
 // Get para mostrar todos os produtos
