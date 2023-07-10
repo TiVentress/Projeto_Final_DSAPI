@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <title>Escolha de Tipo de Receita</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f2f2f2;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+    
+    .tipo-receita-container {
+      background-color: #ffffff;
+      border-radius: 5px;
+      padding: 20px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+    
+    .tipo-receita-container h2 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    
+    .tipo-receita-container label {
+      display: block;
+      margin-bottom: 10px;
+    }
+    
+    .tipo-receita-container input[type="radio"] {
+      margin-right: 5px;
+    }
+    
+    .tipo-receita-container button {
+      width: 100%;
+      padding: 10px;
+      background-color: #4CAF50;
+      border: none;
+      color: #ffffff;
+      cursor: pointer;
+      border-radius: 3px;
+    }
+    
+    .tipo-receita-container button:hover {
+      background-color: #45a049;
+    }
+  </style>
+</head>
+<body>
+  <div class="tipo-receita-container">
+    <h2>Escolha o tipo de receita</h2>
+    <form>
+      <label>
+        <input type="radio" name="tipo" value="doce" required> Doce
+      </label>
+      <label>
+        <input type="radio" name="tipo" value="salgado"> Salgado
+      </label>
+      <label>
+        <input type="radio" name="tipo" value="agridoce"> Agridoce
+      </label>
+      <button type="submit">Confirmar</button>
+    </form>
+  </div>
+</body>
+</html>
