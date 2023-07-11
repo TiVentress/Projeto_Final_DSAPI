@@ -21,8 +21,8 @@ CREATE TABLE receitas(
 );
 
 INSERT INTO categorias VALUES ("1", "Doce") , ("2", "Salgado"), ("3", "Agridoce");
-INSERT INTO usuarios VALUES ("usuario1@gmail.com", "1234");
-INSERT INTO receitas VALUES 
+INSERT INTO usuarios(email, senha) VALUES ("usuario1@gmail.com", "1234");
+INSERT INTO receitas(nome_receitas, modo_preparo, fk_categoria) VALUES 
 ("Pastel de Queijo", 
 "Massa
 3 gemas

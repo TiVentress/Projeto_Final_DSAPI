@@ -1,12 +1,12 @@
 // Conexão com o servidor
 
 const restify = require("restify");
-const errors = require("restify-errors")
+const errors = require("restify-errors");
 
 const servidor = restify.createServer({
     name: "api_receitas",
     version: "1.0.0"
-})
+});
 
 servidor.use(restify.plugins.acceptParser(servidor.acceptable));
 servidor.use(restify.plugins.queryParser());
@@ -34,6 +34,35 @@ servidor.get('/', (req, res, next) => {
     res.send('Bem-vindo(a) à API de receitas!');   
 });
 
+servidor.get('/receitas', (req, res, next) => {
+    knex('receitas').then((dados) =>{
+        res.send(dados);
+    },next); 
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 // Get para mostrar todos os produtos
 
 servidor.get('/produtos', (req, res, next) => {
@@ -43,7 +72,6 @@ servidor.get('/produtos', (req, res, next) => {
 });
 
 // Get para mostrar os produtos por id
-
 servidor.get('/produtos/:id', (req, res, next) => {
     const idProduto = req.params.id;
     knex('produtos')
@@ -58,7 +86,6 @@ servidor.get('/produtos/:id', (req, res, next) => {
 });
 
 // Post para Cadastrar clientes
-
 servidor.post('/clientes', (req, res, next) => {
     knex('clientes')
       .insert(req.body)
@@ -69,7 +96,6 @@ servidor.post('/clientes', (req, res, next) => {
 
 
 // Get para mostrar todos os clientes
-
 servidor.get('/clientes', (req, res, next) => {
     knex('clientes').then((dados) =>{
         res.send(dados);
@@ -77,7 +103,6 @@ servidor.get('/clientes', (req, res, next) => {
 });
 
 // Get para mostrar clientes por id
-
 servidor.get('/clientes/:id', (req, res, next) => {
     const idProduto = req.params.id;
     knex('clientes')
@@ -92,7 +117,6 @@ servidor.get('/clientes/:id', (req, res, next) => {
 });
 
 // Post para cadastrar pedido
-
 servidor.post('/pedidos', (req, res, next) => {
     const idProd = req.params.id;
         knex('pedidos')

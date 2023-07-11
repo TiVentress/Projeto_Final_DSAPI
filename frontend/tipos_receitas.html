@@ -51,7 +51,7 @@
 <body>
   <div class="tipo-receita-container">
     <h2>Escolha o tipo de receita</h2>
-    <form>
+    <form action="tela_receitas.html">
       <label>
         <input type="radio" name="tipo" value="doce" required> Doce
       </label>
@@ -61,7 +61,7 @@
       <label>
         <input type="radio" name="tipo" value="agridoce"> Agridoce
       </label>
-      <button type="submit">Confirmar</button>
+      <button id="btnConfirmar"  onclick="ler()" type="submit">Confirmar</button>
     </form>
   </div>
 </body>
