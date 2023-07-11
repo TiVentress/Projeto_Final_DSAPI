@@ -34,162 +34,107 @@ servidor.get('/', (req, res, next) => {
     res.send('Bem-vindo(a) à API de receitas!');   
 });
 
+// Get que mostra as categorias
+
+servidor.get('/categorias', (req, res, next) => {
+    knex('categorias').then((dados) =>{
+        res.send(dados);
+    },next); 
+});
+
+// Get que mostra as receitas
+
 servidor.get('/receitas', (req, res, next) => {
     knex('receitas').then((dados) =>{
         res.send(dados);
     },next); 
 });
 
+// Get para mostrar as categorias por id
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// Get para mostrar todos os produtos
-
-servidor.get('/produtos', (req, res, next) => {
-    knex('produtos').then((dados) =>{
-        res.send(dados);
-    },next); 
-});
-
-// Get para mostrar os produtos por id
-servidor.get('/produtos/:id', (req, res, next) => {
-    const idProduto = req.params.id;
-    knex('produtos')
-    .where('id', idProduto)
+servidor.get('/categorias/:id', (req, res, next) => {
+    const idCategoria = req.params.id;
+    knex('categorias')
+    .where('id_categoria', idCategoria)
     .first()
     .then((dados) =>{
         if(!dados){
-            return res.send(new errors.BadRequestError('Este produto não foi encontrado'))
+            return res.send(new errors.BadRequestError('Esta categoria não foi encontrada'))
         }
         res.send(dados);
     },next);
 });
 
-// Post para Cadastrar clientes
-servidor.post('/clientes', (req, res, next) => {
-    knex('clientes')
+// Get para mostrar as receitas por id
+
+servidor.get('/receitas/:id', (req, res, next) => {
+    const idReceita = req.params.id;
+    knex('receitas')
+    .where('id_receita', idReceita)
+    .first()
+    .then((dados) =>{
+        if(!dados){
+            return res.send(new errors.BadRequestError('Esta receita não foi encontrada'))
+        }
+        res.send(dados);
+    },next);
+});
+
+// Get para mostrar as receitas por categoria
+
+servidor.get('/receitas_categoria/:idcategoria', (req, res, next) => {
+    const idCategoria = req.params.idcategoria;
+  
+    knex('receitas')
+      .where('fk_categoria', idCategoria)
+      .then((dados) => {
+        if (dados.length === 0) {
+          return res.send(new errors.BadRequestError('Não foram encontradas receitas para esta categoria'));
+        }
+        res.send(dados);
+      })
+      .catch((err) => {
+        res.send(new errors.InternalServerError(err));
+      });
+  });
+  
+// Post para Cadastrar receitas
+
+servidor.post('/receitas', (req, res, next) => {
+    knex('receitas')
       .insert(req.body)
       .then(() => {
-        res.send('Cliente cadastrado com sucesso');
+        res.send('Receita cadastrada com sucesso');
       })
   });
 
+// Atualizar receitas
 
-// Get para mostrar todos os clientes
-servidor.get('/clientes', (req, res, next) => {
-    knex('clientes').then((dados) =>{
-        res.send(dados);
-    },next); 
-});
-
-// Get para mostrar clientes por id
-servidor.get('/clientes/:id', (req, res, next) => {
-    const idProduto = req.params.id;
-    knex('clientes')
-    .where('id', idProduto)
-    .first()
-    .then((dados) =>{
-        if(!dados){
-            return res.send(new errors.BadRequestError('Este cliente não foi encontrado'))
-        }
-        res.send(dados);
-    },next);
-});
-
-// Post para cadastrar pedido
-servidor.post('/pedidos', (req, res, next) => {
-    const idProd = req.params.id;
-        knex('pedidos')
-        .where('id', idProd)
-        .insert(req.body)
-        .then((dados) =>{
-            res.send('Pedido Cadastrado com Sucesso')
-        },next);
- });
-
-// Get para mostrar todos os pedidos
-
-servidor.get('/pedidos', (req, res, next) => {
-    knex('pedidos').then((dados) =>{
-        res.send(dados);
-    },next); 
-});
-
-// Get para mostrar pedidos por id
-
-servidor.get('/pedidos/:id', (req, res, next) => {
-    const idProduto = req.params.id;
-    knex('pedidos')
-    .where('id', idProduto)
-    .first()
-    .then((dados) =>{
-        if(!dados){
-            return res.send(new errors.BadRequestError('Este pedido não foi encontrado'))
-        }
-        res.send(dados);
-    },next);
-});
-
-// admins
-
-// Cadastrar produtos
-
-servidor.post('/admin/produtos', (req, res, next) => {
-    const idProd = req.params.id;
-        knex('produtos')
-        .where('id', idProd)
-        .insert(req.body)
-        .then((dados) =>{
-            res.send('Produto Cadastrado com Sucesso')
-        },next);
- });
-
-// Atualizar Produtos
-
-servidor.put('/admin/produtos/:id', (req, res, next) => {
-    const idProd = req.params.id;
-    knex('produtos')
-    .where('id', idProd)
+servidor.put('/atualizar_receitas/:id', (req, res, next) => {
+    const idReceita = req.params.id;
+    knex('receitas')
+    .where('id_receita', idReceita)
     .update(req.body)
     .then((dados) =>{
         if(!dados){
-            return res.send(new errors.BadRequestError('Este produto não foi encontrado'))
+            return res.send(new errors.BadRequestError('Esta receita não foi encontrada'))
         }
-        res.send('Produto atualizado');
-    },next);
+        res.send('Receita atualizada com sucesso!');
+    })
+    .catch(next);
 });
 
-// Deletar Produtos
+// Deletar Receitas
 
-servidor.del('/admin/produtos/:id', (req, res, next) => {
-    const idProd = req.params.id;
-    knex('produtos')
-    .where('id', idProd)
+servidor.del('/deletar_receita/:id', (req, res, next) => {
+    const idReceita = req.params.id;
+    knex('receitas')
+    .where('id_receita', idReceita)
     .delete()
     .then((dados) =>{
         if(!dados){
-            return res.send(new errors.BadRequestError('Este produto não foi encontrado'))
+            return res.send(new errors.BadRequestError('Esta receita não foi encontrado'))
         }
-        res.send('Produto deletado');
+        res.send('Receita deletada');
     },next);
 });
