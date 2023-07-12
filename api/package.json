@@ -9,6 +9,7 @@
   "author": "\"Nathalia Chesim\" , \"Tiago Lara\"",
   "license": "ISC",
   "dependencies": {
+    "cors": "^2.8.5",
     "knex": "^2.5.0",
     "mysql": "^2.18.1",
     "restify": "^11.1.0",
