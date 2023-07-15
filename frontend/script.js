@@ -35,7 +35,7 @@ function ler(){
         divJsonInfo.innerHTML = this.responseText;
       }
     };
-      xhttp.open("GET", "http://localhost:8001/receitas", true);
+      xhttp.open("GET", "http://localhost:8001/receitas_categoria/1", true);
       xhttp.send();
     }
 
@@ -77,3 +77,45 @@ function ler(){
 //          xhttp.open("GET" , "http://localhost:8001/receitas", true);
 //          xhttp.send();
 //      }
+
+function lertudo() {
+    const tipoReceita = document.querySelector('input[name="tipo"]:checked').value;
+  
+    divJsonInfo = document.getElementById("json-info");
+    divJsonInfo.innerHTML = ""; // Limpa as receitas anteriores
+  
+    xhttp = new XMLHttpRequest();
+  
+    xhttp.onreadystatechange = function() {
+      if (this.readyState === 4) {
+        if (this.status === 200) {
+          var obj = JSON.parse(this.responseText);
+          obj.forEach((dado) => {
+            // Cria um elemento de parágrafo para cada receita
+            const paragraph = document.createElement("p");
+            paragraph.id = "p" + dado.id_receita;
+            paragraph.innerHTML = `id_receita ${dado.id_receita} - nome_receitas ${dado.nome_receitas} - modo_preparo ${dado.modo_preparo} - fk_categoria ${dado.fk_categoria}`;
+  
+            // Adiciona o elemento de parágrafo à div de receitas
+            divJsonInfo.appendChild(paragraph);
+  
+            // Cria um botão de exclusão para cada receita
+            const button = document.createElement("button");
+            button.innerHTML = "Excluir";
+            button.addEventListener("click", function() {
+              excluir(dado.id_receita);
+            });
+  
+            // Adiciona o botão à div de receitas
+            divJsonInfo.appendChild(button);
+          });
+        } else {
+          divJsonInfo.innerHTML = "Erro ao obter as receitas.";
+        }
+      }
+    };
+  
+    xhttp.open("GET", `http://localhost:8001/receitas_categoria/${tipoReceita}`, true);
+    xhttp.send();
+  }
+  
