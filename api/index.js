@@ -25,6 +25,7 @@ servidor.listen(8001, function(){
     console.log("%s executando em %s", servidor.name, servidor.url);
 });
 
+
 // Conexão com o banco de dados
 
 var knex = require('knex')({

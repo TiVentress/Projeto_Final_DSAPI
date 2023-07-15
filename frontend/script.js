@@ -7,11 +7,11 @@ function ler(){
     xhttp.onreadystatechange = function(){
         obj = JSON.parse( this.responseText );
         obj.forEach( dado => {
-            if (document.getElementById("d" + dado.id) == null){
+            if (document.getElementById("p" + dado.id) == null){
 
                 // Cria um elemento de parágrafo para cada produto
-                const paragraph = document.createElement("d");
-                paragraph.id = "d" + dado.id;
+                const paragraph = document.createElement("p");
+                paragraph.id = "p" + dado.id;
                 paragraph.innerHTML = `id_receita ${dado.id_receita} - nome_receitas ${dado.nome_receitas} - modo_preparo ${dado.modo_preparo} - fk_categoria ${dado.fk_categoria}`;
           
                 // Adiciona o elemento de parágrafo à div de produtos
@@ -28,7 +28,7 @@ function ler(){
                 divJsonInfo.appendChild(button);        
             }
         });
-        divJsonInfo.innerHTML = "";
+        // divJsonInfo.innerHTML = "";
 
     if (this.readyState == 4 && this.status != 200) {
         divJsonInfo.innerHTML = this.responseText;
