@@ -1,10 +1,6 @@
-// Conexão com o servidor
-
 const restify = require("restify");
 const errors = require("restify-errors");
-
 const corsMiddleware = require("restify-cors-middleware2");
-
 const cors = corsMiddleware({
     origins: ['*']
 });
@@ -17,7 +13,6 @@ const servidor = restify.createServer({
 servidor.use(restify.plugins.acceptParser(servidor.acceptable));
 servidor.use(restify.plugins.queryParser());
 servidor.use(restify.plugins.bodyParser());
-
 servidor.pre( cors.preflight );
 servidor.use( cors.actual );
 
@@ -25,9 +20,7 @@ servidor.listen(8001, function(){
     console.log("%s executando em %s", servidor.name, servidor.url);
 });
 
-
 // Conexão com o banco de dados
-
 var knex = require('knex')({
     client: 'mysql',
     connection: {
@@ -39,13 +32,11 @@ var knex = require('knex')({
 });
 
 // Get de boas vindas
-
 servidor.get('/', (req, res, next) => {
     res.send('Bem-vindo(a) à API de receitas!');   
 });
 
 // Get que mostra as categorias
-
 servidor.get('/categorias', (req, res, next) => {
     knex('categorias').then((dados) =>{
         res.send(dados);
@@ -53,7 +44,6 @@ servidor.get('/categorias', (req, res, next) => {
 });
 
 // Get que mostra as receitas
-
 servidor.get('/receitas', (req, res, next) => {
     knex('receitas').then((dados) =>{
         res.send(dados);
@@ -61,7 +51,6 @@ servidor.get('/receitas', (req, res, next) => {
 });
 
 // Get para mostrar as categorias por id
-
 servidor.get('/categorias/:id', (req, res, next) => {
     const idCategoria = req.params.id;
     knex('categorias')
@@ -76,7 +65,6 @@ servidor.get('/categorias/:id', (req, res, next) => {
 });
 
 // Get para mostrar as receitas por id
-
 servidor.get('/receitas/:id', (req, res, next) => {
     const idReceita = req.params.id;
     knex('receitas')
@@ -91,7 +79,6 @@ servidor.get('/receitas/:id', (req, res, next) => {
 });
 
 // Get para mostrar as receitas por categoria
-
 servidor.get('/receitas_categoria/:idcategoria', (req, res, next) => {
     const idCategoria = req.params.idcategoria;
   
@@ -109,7 +96,6 @@ servidor.get('/receitas_categoria/:idcategoria', (req, res, next) => {
   });
   
 // Post para Cadastrar receitas
-
 servidor.post('/receitas', (req, res, next) => {
     knex('receitas')
       .insert(req.body)
@@ -119,7 +105,6 @@ servidor.post('/receitas', (req, res, next) => {
   });
 
 // Atualizar receitas
-
 servidor.put('/atualizar_receitas/:id', (req, res, next) => {
     const idReceita = req.params.id;
     knex('receitas')
@@ -135,7 +120,6 @@ servidor.put('/atualizar_receitas/:id', (req, res, next) => {
 });
 
 // Deletar Receitas
-
 servidor.del('/deletar_receita/:id', (req, res, next) => {
     const idReceita = req.params.id;
     knex('receitas')
