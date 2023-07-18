@@ -132,3 +132,11 @@ servidor.del('/deletar_receita/:id', (req, res, next) => {
         res.send('Receita deletada');
     },next);
 });
+
+// DEPENCIAS INSTALADAS
+// npm i npm install –save knex
+// npm install –save mysql
+// npm install restify
+// npm install restify-errors
+// npm i cors
+// npm i restify-cors-middleware2
